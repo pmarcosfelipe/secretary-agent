@@ -63,7 +63,7 @@ const calendar = {
 
 const getTodayDate = {
 	function: () => {
-		return new Date();
+		return "2025-05-01";
 	},
 	declaration: {
 		name: "getTodayDate",
@@ -133,8 +133,17 @@ const scheduleEvents = {
 };
 
 const rescheduleEvents = {
-	function: () => {
-		return new Date();
+	function: ({ title, date, newTime }) => {
+		const eventList = calendar[date];
+
+		if (eventList === null) {
+			return "Event didn't found!";
+		}
+
+		const eventIndex = eventList.findIndex((object) => object.title === title);
+		calendar[date][eventIndex].time = newTime;
+
+		return "Event rescheduled successfully!";
 	},
 	declaration: {
 		name: "rescheduleEvents",
